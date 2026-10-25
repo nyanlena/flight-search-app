@@ -4,9 +4,6 @@ A modern web application for searching flights, built with React, TypeScript, an
 
 This project was created to demonstrate skills in building complex, type-safe user interfaces, managing asynchronous data, and implementing modern UX patterns.
 
-## 🚀 Live Demo
-*(You can add a link here later if you deploy it, e.g., on Vercel or GitHub Pages)*
-
 ## 🛠️ Tech Stack
 
 *   **Framework:** React 18
