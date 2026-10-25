@@ -122,6 +122,32 @@ function App() {
                     <div className="flight-duration">
                       В пути: {calculateDuration(flight.departureDate, flight.arrivalDate)}
                     </div>
+                    <div className="flight-extras">
+                      {/* Питание */}
+                      <span className="extra-item">
+                        {flight.meal === 'included' && '🍱 Питание включено'}
+                        {flight.meal === 'paid' && '💳 Питание за доп. плату'}
+                        {flight.meal === 'none' && '🚫 Без питания'}
+                      </span>
+
+                      {/* Пересадки */}
+                      {flight.transfersDetails && flight.transfersDetails.length > 0 && (
+                        <div className="extra-item" style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
+                          <span>🔄 Пересадки:</span>
+                          <ul style={{ paddingLeft: '20px', margin: 0 }}>
+                            {flight.transfersDetails.map((t, idx) => (
+                              <li key={idx}>
+                                {t.city} ({t.airport}) — ожидание {t.duration}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                    
+                  </div>
+                  
+                  <div className="flight-action">
                   </div>
                   
                   <div className="flight-action">

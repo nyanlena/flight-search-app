@@ -142,6 +142,28 @@ body {
   border-color: #ff6b6b;
 }
 
+.flight-extras {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #4a5568;
+  background-color: #f7fafc;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.extra-item ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 4px;
+}
+
+.extra-item li {
+  margin-bottom: 2px;
+}
+
 /* Карточка билета */
 .flights-list {
   list-style: none;
