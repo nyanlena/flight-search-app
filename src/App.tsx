@@ -4,37 +4,55 @@ import type { Flight } from './types/flight';
 import { calculateDuration } from './utils/dateUtils';
 import './App.css';
 
+// Компонент скелетона
+const FlightSkeleton = () => (
+  <li className="flight-card skeleton-card">
+    <div className="flight-info">
+      <div className="skeleton-line" style={{ width: '40%', height: '20px', marginBottom: '10px' }}></div>
+      <div className="skeleton-line" style={{ width: '60%', height: '16px', marginBottom: '8px' }}></div>
+      <div className="skeleton-line" style={{ width: '30%', height: '14px' }}></div>
+    </div>
+    <div className="flight-action">
+      <div className="skeleton-line" style={{ width: '80px', height: '24px', marginBottom: '10px' }}></div>
+      <div className="skeleton-line" style={{ width: '100px', height: '32px' }}></div>
+    </div>
+  </li>
+);
+
 function App() {
   const [flights, setFlights] = useState<Flight[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [isFetching, setIsFetching] = useState(false); 
   
-  // Cостояния для фильтров и валюты
   const [onlyDirect, setOnlyDirect] = useState(false);
   const [currency, setCurrency] = useState<'RUB' | 'USD' | 'EUR'>('RUB');
 
-  const handleSearchResults = (results: Flight[]) => {
-    setFlights(results);
+  const handleSearch = async (from: string, to: string) => {
+    setIsFetching(true);
     setHasSearched(true);
-    // Сбрасываем фильтры при новом поиске
-    setOnlyDirect(false);
-    setCurrency('RUB');
+    try {
+      const { searchFlights } = await import('./api/flightApi');
+      const results = await searchFlights(from, to);
+      setFlights(results);
+      setOnlyDirect(false);
+      setCurrency('RUB');
+    } catch (error) {
+      console.error(error);
+      setFlights([]); // Если ошибка, очищаем список
+    } finally {
+      setIsFetching(false);
+    }
   };
 
-  // Логика фильтрации и сортировки
   const filteredFlights = flights
     .filter(f => onlyDirect ? f.transfers === 0 : true)
-    .sort((a, b) => a.price - b.price); // Сортируем от дешевых к дорогим
+    .sort((a, b) => a.price - b.price);
 
-  // Логика конвертации валют
   const getPrice = (priceInRub: number) => {
     const rates = { RUB: 1, USD: 0.011, EUR: 0.010 };
     const symbols = { RUB: '₽', USD: '$', EUR: '€' };
     const converted = priceInRub * rates[currency];
-    
-    const formattedPrice = currency === 'RUB' 
-      ? Math.round(converted) 
-      : converted.toFixed(2);
-
+    const formattedPrice = currency === 'RUB' ? Math.round(converted) : converted.toFixed(2);
     return `${formattedPrice} ${symbols[currency]}`;
   };
 
@@ -46,7 +64,7 @@ function App() {
       </header>
       
       <div className="search-section">
-        <SearchForm onResults={handleSearchResults} />
+        <SearchForm onSearch={handleSearch} />
       </div>
 
       {hasSearched && (
@@ -57,6 +75,7 @@ function App() {
                 type="checkbox" 
                 checked={onlyDirect} 
                 onChange={(e) => setOnlyDirect(e.target.checked)} 
+                disabled={isFetching}
               />
               Только прямые рейсы
             </label>
@@ -65,6 +84,7 @@ function App() {
               className="currency-select"
               value={currency} 
               onChange={(e) => setCurrency(e.target.value as 'RUB' | 'USD' | 'EUR')}
+              disabled={isFetching}
             >
               <option value="RUB">₽ RUB</option>
               <option value="USD">$ USD</option>
@@ -72,7 +92,14 @@ function App() {
             </select>
           </div>
 
-          {filteredFlights.length === 0 ? (
+          {isFetching ? (
+            // Показываем скелетоны во время загрузки
+            <ul className="flights-list">
+              <FlightSkeleton />
+              <FlightSkeleton />
+              <FlightSkeleton />
+            </ul>
+          ) : filteredFlights.length === 0 ? (
             <p className="no-results">Билетов, подходящих под фильтры, не найдено 😔</p>
           ) : (
             <ul className="flights-list">
