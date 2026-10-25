@@ -26,6 +26,7 @@ function App() {
   
   const [onlyDirect, setOnlyDirect] = useState(false);
   const [currency, setCurrency] = useState<'RUB' | 'USD' | 'EUR'>('RUB');
+  const [sortBy, setSortBy] = useState<'price' | 'duration' | 'transfers'>('price');
 
   const handleSearch = async (from: string, to: string) => {
     setIsFetching(true);
@@ -46,7 +47,16 @@ function App() {
 
   const filteredFlights = flights
     .filter(f => onlyDirect ? f.transfers === 0 : true)
-    .sort((a, b) => a.price - b.price);
+    .sort((a, b) => {
+      if (sortBy === 'price') return a.price - b.price;
+      if (sortBy === 'transfers') return a.transfers - b.transfers;
+      if (sortBy === 'duration') {
+        const aDuration = new Date(a.arrivalDate).getTime() - new Date(a.departureDate).getTime();
+        const bDuration = new Date(b.arrivalDate).getTime() - new Date(b.departureDate).getTime();
+        return aDuration - bDuration;
+      }
+      return 0;
+    });
 
   const getPrice = (priceInRub: number) => {
     const rates = { RUB: 1, USD: 0.011, EUR: 0.010 };
@@ -79,6 +89,17 @@ function App() {
               />
               Только прямые рейсы
             </label>
+
+            <select 
+              className="currency-select"
+              value={sortBy} 
+              onChange={(e) => setSortBy(e.target.value as 'price' | 'duration' | 'transfers')}
+              disabled={isFetching}
+            >
+              <option value="price">Сначала дешевые</option>
+              <option value="duration">Сначала быстрые</option>
+              <option value="transfers">Меньше пересадок</option>
+            </select>
 
             <select 
               className="currency-select"
@@ -116,7 +137,7 @@ function App() {
                       )}
                       <span className="airline-name">{flight.airline}</span>
                     </div>
-                    
+
                     <div className="flight-route">
                       <strong>{flight.from}</strong>
                       <span className="arrow">➔</span>

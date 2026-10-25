@@ -8,9 +8,9 @@ const mockFlights: Flight[] = [
   { id: '4', from: 'Москва', to: 'Сочи', price: 6100, departureTime: '20:00', arrivalTime: '23:30', departureDate: '2026-11-10T20:00:00', arrivalDate: '2026-11-10T23:30:00', transfers: 1, meal: 'included', transfersDetails: [{ city: 'Краснодар', airport: 'KRR', duration: '2ч 00м' }], airline: 'Уральские авиалинии', airlineLogo: '/airlines/ural.png' },
   
   // Шанхай
-  { id: '5', from: 'Москва', to: 'Шанхай', price: 51500, departureTime: '19:30', arrivalTime: '08:00', departureDate: '2026-11-10T19:30:00', arrivalDate: '2026-11-11T08:00:00', transfers: 0, meal: 'included', airline: 'Аэрофлот', airlineLogo: '/airlines/aeroflot.png' },
+  { id: '5', from: 'Москва', to: 'Шанхай', price: 51500, departureTime: '19:30', arrivalTime: '06:00', departureDate: '2026-11-10T19:30:00', arrivalDate: '2026-11-11T06:00:00', transfers: 0, meal: 'included', airline: 'Аэрофлот', airlineLogo: '/airlines/aeroflot.png' },
   { id: '6', from: 'Москва', to: 'Шанхай', price: 23200, departureTime: '14:00', arrivalTime: '14:50', departureDate: '2026-11-10T14:00:00', arrivalDate: '2026-11-11T14:50:00', transfers: 1, meal: 'paid', transfersDetails: [{ city: 'Пекин', airport: 'PEK', duration: '3ч 20м' }], airline: 'Air China', airlineLogo: '/airlines/air-china.png' },
-  { id: '7', from: 'Москва', to: 'Шанхай', price: 40800, departureTime: '17:00', arrivalTime: '06:00', departureDate: '2026-11-10T17:00:00', arrivalDate: '2026-11-11T06:00:00', transfers: 0, meal: 'included', airline: 'China Eastern', airlineLogo: '/airlines/china-eastern.png' },
+  { id: '7', from: 'Москва', to: 'Шанхай', price: 40800, departureTime: '18:40', arrivalTime: '04:30', departureDate: '2026-11-10T18:40:00', arrivalDate: '2026-11-11T04:30:00', transfers: 0, meal: 'included', airline: 'China Eastern', airlineLogo: '/airlines/china-eastern.png' },
   { id: '8', from: 'Москва', to: 'Шанхай', price: 28700, departureTime: '18:30', arrivalTime: '14:30', departureDate: '2026-11-10T18:30:00', arrivalDate: '2026-11-11T14:30:00', transfers: 1, meal: 'none', transfersDetails: [{ city: 'Урумчи', airport: 'URC', duration: '4ч 10м' }], airline: 'Hainan Airlines', airlineLogo: '/airlines/hainan.png' },
 
   // Пхукет
