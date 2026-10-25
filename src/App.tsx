@@ -106,6 +106,17 @@ function App() {
               {filteredFlights.map(flight => (
                 <li key={flight.id} className="flight-card">
                   <div className="flight-info">
+                    <div className="airline-info">
+                      {flight.airlineLogo && (
+                        <img 
+                          src={flight.airlineLogo} 
+                          alt={flight.airline} 
+                          className="airline-logo" 
+                        />
+                      )}
+                      <span className="airline-name">{flight.airline}</span>
+                    </div>
+                    
                     <div className="flight-route">
                       <strong>{flight.from}</strong>
                       <span className="arrow">➔</span>

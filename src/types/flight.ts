@@ -18,4 +18,6 @@ export interface Flight {
   transfers: number;
   transfersDetails?: TransferDetail[];
   meal: MealOption; 
+  airline: string;
+  airlineLogo: string;
 }
