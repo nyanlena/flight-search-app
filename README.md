@@ -1,32 +1,50 @@
-# React + TypeScript + Vite
+# ✈️ Flight Search App
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A modern web application for searching flights, built with React, TypeScript, and Vite. 
 
-Currently, two official plugins are available:
+This project was created to demonstrate skills in building complex, type-safe user interfaces, managing asynchronous data, and implementing modern UX patterns.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Live Demo
+*(You can add a link here later if you deploy it, e.g., on Vercel or GitHub Pages)*
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+*   **Framework:** React 18
+*   **Language:** TypeScript
+*   **Build Tool:** Vite
+*   **Form Management:** React Hook Form
+*   **Validation:** Zod
+*   **Styling:** Vanilla CSS (Modern CSS, Flexbox, Animations)
+*   **API:** Mock API with simulated network delays and error handling
 
-## Expanding the Oxlint configuration
+## ✨ Key Features
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+*   **Asynchronous Search:** Simulated API requests with loading states and error handling.
+*   **Skeleton Loading:** Modern UX pattern using skeleton screens while fetching flight data.
+*   **Smart Filtering:** Filter flights by the number of stops (direct flights only).
+*   **Dynamic Currency Switching:** Convert prices between RUB, USD, and EUR in real-time.
+*   **Price Sorting:** Automatically sorts flights by price (lowest to highest).
+*   **Flight Details:** Displays flight duration (handling overnight flights), meal options, and detailed transfer information (city, airport code, and layover time).
+*   **Responsive Design:** Fully responsive UI that works on desktop and mobile devices.
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+## 📦 How to Run Locally
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/nyanlena/flight-search-app.git
+
+2. Navigate to the project directory:
+   ```bash
+   cd flight-search-app
+
+3. Install dependencies:
+   ```bash
+   npm install --legacy-peer-deps
+
+4. Start the development server:
+   ```bash
+   npm run dev
+
+5. Open http://localhost:5173 in your browser
+
+❤️❤️❤️❤️❤️❤️
