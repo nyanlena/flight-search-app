@@ -47,38 +47,32 @@ export const SearchForm = ({ onResults }: SearchFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '400px', margin: '0 auto' }}>
-      <div>
-        <label style={{ display: 'block', marginBottom: '4px' }}>Откуда:</label>
+    <form className="search-form" onSubmit={handleSubmit(onSubmit)}>
+      <div className="input-group">
+        <label>Откуда:</label>
         <input 
           type="text" 
           placeholder="Москва"
           {...register('from')} 
-          style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
         />
-        {errors.from && <span style={{ color: 'red', fontSize: '12px' }}>{errors.from.message}</span>}
+        {errors.from && <span className="error-text">{errors.from.message}</span>}
       </div>
 
-      <div>
-        <label style={{ display: 'block', marginBottom: '4px' }}>Куда:</label>
+      <div className="input-group">
+        <label>Куда:</label>
         <input 
           type="text" 
           placeholder="Сочи"
           {...register('to')} 
-          style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
         />
-        {errors.to && <span style={{ color: 'red', fontSize: '12px' }}>{errors.to.message}</span>}
+        {errors.to && <span className="error-text">{errors.to.message}</span>}
       </div>
 
-      <button 
-        type="submit" 
-        disabled={isLoading}
-        style={{ padding: '10px', backgroundColor: '#0099ffff', color: 'white', border: 'none', borderRadius: '4px', cursor: isLoading ? 'not-allowed' : 'pointer', fontWeight: 'bold' }}
-      >
-        {isLoading ? 'Загрузка...' : 'Найти билеты'}
+      <button type="submit" disabled={isLoading} className="submit-btn">
+        {isLoading ? 'Поиск...' : 'Найти билеты'}
       </button>
 
-      {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+      {error && <p className="error-text" style={{ textAlign: 'center' }}>{error}</p>}
     </form>
   );
 };

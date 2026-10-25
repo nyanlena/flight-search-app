@@ -39,16 +39,20 @@ function App() {
   };
 
   return (
-    <div style={{ padding: '40px', fontFamily: 'sans-serif', maxWidth: '800px', margin: '0 auto' }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Поиск авиабилетов</h1>
+    <div className="app-container">
+      <header className="app-header">
+        <h1>✈️ Поиск авиабилетов</h1>
+        <p>Найдите лучшие предложения для вашего путешествия</p>
+      </header>
       
-      <SearchForm onResults={handleSearchResults} />
+      <div className="search-section">
+        <SearchForm onResults={handleSearchResults} />
+      </div>
 
       {hasSearched && (
-        <div style={{ marginTop: '40px' }}>
-          {/* Панель фильтров */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px', backgroundColor: '#f5f5f5', borderRadius: '8px', marginBottom: '20px' }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+        <div className="results-section">
+          <div className="filters-panel">
+            <label className="checkbox-label">
               <input 
                 type="checkbox" 
                 checked={onlyDirect} 
@@ -58,39 +62,44 @@ function App() {
             </label>
 
             <select 
+              className="currency-select"
               value={currency} 
               onChange={(e) => setCurrency(e.target.value as 'RUB' | 'USD' | 'EUR')}
-              style={{ padding: '6px', borderRadius: '4px', border: '1px solid #ccc' }}
             >
-              <option value="RUB">Рубли (₽)</option>
-              <option value="USD">Доллары ($)</option>
-              <option value="EUR">Евро (€)</option>
+              <option value="RUB">₽ RUB</option>
+              <option value="USD">$ USD</option>
+              <option value="EUR">€ EUR</option>
             </select>
           </div>
 
-          {/* Список билетов */}
           {filteredFlights.length === 0 ? (
-            <p style={{ textAlign: 'center', color: '#666' }}>Билетов, подходящих под фильтры, не найдено</p>
+            <p className="no-results">Билетов, подходящих под фильтры, не найдено 😔</p>
           ) : (
-            <ul style={{ listStyle: 'none', padding: 0 }}>
+            <ul className="flights-list">
               {filteredFlights.map(flight => (
-                <li key={flight.id} style={{ border: '1px solid #eee', padding: '16px', marginBottom: '10px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
-                  <div>
-                    <strong>{flight.from} ➔ {flight.to}</strong>
-                    <div style={{ fontSize: '14px', color: '#666', marginTop: '4px' }}>
-                      {flight.departureTime} - {flight.arrivalTime} | Пересадок: {flight.transfers}
+                <li key={flight.id} className="flight-card">
+                  <div className="flight-info">
+                    <div className="flight-route">
+                      <strong>{flight.from}</strong>
+                      <span className="arrow">➔</span>
+                      <strong>{flight.to}</strong>
                     </div>
-                    <div style={{ fontSize: '12px', color: '#888', marginTop: '2px' }}>
+                    <div className="flight-time">
+                      {flight.departureTime} - {flight.arrivalTime}
+                      {flight.transfers === 0 ? (
+                        <span className="badge badge-success">Без пересадок</span>
+                      ) : (
+                        <span className="badge badge-warning">{flight.transfers} пересадка</span>
+                      )}
+                    </div>
+                    <div className="flight-duration">
                       В пути: {calculateDuration(flight.departureDate, flight.arrivalDate)}
                     </div>
                   </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontWeight: 'bold', fontSize: '20px', color: '#ff6b6b', marginBottom: '8px' }}>
-                      {getPrice(flight.price)}
-                    </div>
-                    <button style={{ backgroundColor: '#ff6b6b', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer' }}>
-                      Купить
-                    </button>
+                  
+                  <div className="flight-action">
+                    <div className="price">{getPrice(flight.price)}</div>
+                    <button className="buy-btn">Купить</button>
                   </div>
                 </li>
               ))}
